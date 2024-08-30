@@ -1,7 +1,20 @@
 import "./App.css";
-import { TonConnectUIProvider, TonConnectButton } from "@tonconnect/ui-react";
+import {
+  TonConnectUIProvider,
+  TonConnectButton,
+  useIsConnectionRestored,
+  useTonWallet,
+} from "@tonconnect/ui-react";
 
 function App() {
+  const Wallet = useTonWallet();
+  const status = useIsConnectionRestored()
+
+
+  console.log('status', status)
+
+  console.log('Wallet', Wallet)
+
   return (
     <>
       <TonConnectUIProvider
