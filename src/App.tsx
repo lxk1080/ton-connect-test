@@ -6,7 +6,7 @@ import {
   useTonWallet,
 } from "@tonconnect/ui-react";
 
-function App() {
+const Button = () => {
   const Wallet = useTonWallet();
   const status = useIsConnectionRestored()
 
@@ -14,7 +14,10 @@ function App() {
   console.log('status', status)
 
   console.log('Wallet', Wallet)
+  return <TonConnectButton />
+}
 
+function App() {
   return (
     <>
       <TonConnectUIProvider
@@ -24,7 +27,7 @@ function App() {
         }}
       >
         <span>My App with React UI</span>
-        <TonConnectButton />
+        <Button />
       </TonConnectUIProvider>
     </>
   );
