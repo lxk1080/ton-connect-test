@@ -7,13 +7,12 @@ import {
 } from "@tonconnect/ui-react";
 
 const Button = () => {
-  const Wallet = useTonWallet();
+  const Wallet = useTonWallet()
   const status = useIsConnectionRestored()
 
-
   console.log('status', status)
-
   console.log('Wallet', Wallet)
+
   return <TonConnectButton />
 }
 
@@ -23,7 +22,7 @@ function App() {
       <TonConnectUIProvider
         manifestUrl="https://ton-connect-test.vercel.app/tonconnect-manifest.json"
         actionsConfiguration={{
-          twaReturnUrl: "https://t.me/tomowalletbot/tomo_wallet_app",
+          twaReturnUrl: "https://t.me/zerolxktontestBot/tgWalletTonConnect",
         }}
       >
         <span>My App with React UI</span>
