@@ -40,10 +40,10 @@ function App() {
       >
         <span>My App with React UI</span>
         <Button />
-      </TonConnectUIProvider>
-      <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
+        <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
           Send transaction
-      </button>
+        </button>
+      </TonConnectUIProvider>
     </>
   );
 }
