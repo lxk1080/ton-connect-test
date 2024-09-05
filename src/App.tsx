@@ -17,9 +17,8 @@ const Button = () => {
   return <TonConnectButton />
 }
 
-function App() {
+const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI();
-
   const transaction = {
     messages: [
         {
@@ -29,7 +28,14 @@ function App() {
     ],
     validUntil: 10000,
   }
+  return (
+    <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
+      Send transaction
+    </button>
+  )
+}
 
+function App() {
   return (
     <>
       <TonConnectUIProvider
@@ -40,9 +46,7 @@ function App() {
       >
         <span>My App with React UI</span>
         <Button />
-        <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
-          Send transaction
-        </button>
+        <SendButton />
       </TonConnectUIProvider>
     </>
   );
