@@ -17,6 +17,8 @@ const Button = () => {
   return <TonConnectButton />
 }
 
+// ...
+
 const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI();
   const transaction = {
