@@ -22,7 +22,7 @@ const SendButton = () => {
   const transaction = {
     messages: [
         {
-            address: "0:cd60b11355dbc5ded0d14e245fef1ba3014154ef077959e8102e10656d6ea02c", // destination address
+            address: "0:94f90fe21c344f76f28f75a20a15746e004149723711639691516dc7d00025e8", // destination address
             amount: "20000000" //Toncoin in nanotons
         }
     ],
