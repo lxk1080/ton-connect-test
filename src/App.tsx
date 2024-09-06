@@ -26,7 +26,7 @@ const SendButton = () => {
             amount: "2000000" // Toncoin in nanotons
         }
     ],
-    validUntil: 10000,
+    validUntil: Math.floor(Date.now() / 1000) + 60,
   }
   return (
     <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
