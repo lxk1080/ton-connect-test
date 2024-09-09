@@ -11,6 +11,15 @@ import {
 const Button = () => {
   const Wallet = useTonWallet()
   const status = useIsConnectionRestored()
+  const [tonConnectUI] = useTonConnectUI()
+
+  const close = async () => {
+    await tonConnectUI.disconnect()
+  }
+
+  useEffect(() => {
+    close()
+  }, [])
 
   console.log('status', status)
   console.log('Wallet', Wallet)
@@ -36,16 +45,6 @@ const SendButton = () => {const [tonConnectUI] = useTonConnectUI()
 }
 
 function App() {
-  const [tonConnectUI] = useTonConnectUI()
-
-  const close = async () => {
-    await tonConnectUI.disconnect()
-  }
-
-  useEffect(() => {
-    close()
-  }, [])
-
   return (
     <>
       <TonConnectUIProvider
