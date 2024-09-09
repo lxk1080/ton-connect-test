@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./App.css";
 import {
   TonConnectUIProvider,
@@ -17,8 +18,7 @@ const Button = () => {
   return <TonConnectButton />
 }
 
-const SendButton = () => {
-  const [tonConnectUI] = useTonConnectUI();
+const SendButton = () => {const [tonConnectUI] = useTonConnectUI()
   const transaction = {
     messages: [
         {
@@ -36,6 +36,16 @@ const SendButton = () => {
 }
 
 function App() {
+  const [tonConnectUI] = useTonConnectUI()
+
+  const close = async () => {
+    await tonConnectUI.disconnect()
+  }
+
+  useEffect(() => {
+    close()
+  }, [])
+
   return (
     <>
       <TonConnectUIProvider
