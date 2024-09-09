@@ -11,14 +11,14 @@ import {
 const Button = () => {
   const Wallet = useTonWallet()
   const status = useIsConnectionRestored()
-  const [tonConnectUI] = useTonConnectUI()
+  // const [tonConnectUI] = useTonConnectUI()
 
-  const close = async () => {
-    await tonConnectUI.disconnect()
-  }
+  // const close = async () => {
+  //   await tonConnectUI.disconnect()
+  // }
 
   useEffect(() => {
-    close()
+    // close()
   }, [])
 
   console.log('status', status)
