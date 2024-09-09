@@ -27,18 +27,25 @@ const Button = () => {
   return <TonConnectButton />
 }
 
-const SendButton = () => {const [tonConnectUI] = useTonConnectUI()
-  const transaction = {
-    messages: [
-        {
-            address: "0:94f90fe21c344f76f28f75a20a15746e004149723711639691516dc7d00025e8", // destination address
-            amount: "2000000" // Toncoin in nanotons
-        }
-    ],
-    validUntil: Math.floor(Date.now() / 1000) + 60,
+const SendButton = () => {
+  const [tonConnectUI] = useTonConnectUI()
+
+  const onSendClick = () => {
+    const transaction = {
+      messages: [
+          {
+              address: "0:94f90fe21c344f76f28f75a20a15746e004149723711639691516dc7d00025e8", // destination address
+              amount: "2000000" // Toncoin in nanotons
+          }
+      ],
+      validUntil: Math.floor(Date.now() / 1000) + 60,
+    }
+
+    tonConnectUI.sendTransaction(transaction)
   }
+
   return (
-    <button onClick={() => tonConnectUI.sendTransaction(transaction)}>
+    <button onClick={onSendClick}>
       Send transaction
     </button>
   )
