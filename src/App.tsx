@@ -30,7 +30,7 @@ const Button = () => {
 const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI()
 
-  const onSendClick = () => {
+  const onSendClick = async () => {
     const transaction = {
       messages: [
           {
@@ -47,7 +47,7 @@ const SendButton = () => {
       validUntil: Math.floor(Date.now() / 1000) + 60,
     }
 
-    const res = tonConnectUI.sendTransaction(transaction)
+    const res = await tonConnectUI.sendTransaction(transaction)
     console.log('sendRes ==>', res)
   }
 
