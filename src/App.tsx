@@ -39,10 +39,10 @@ const SendButton = () => {
               amount: "1000000" // Toncoin in nanotons - 0.001 Ton
               // amount: "20000000000000"
           },
-          // {
-          //   address: "UQBkBVZpW5-wc4TwhDiNkZUa3uEJMW3WnDhGqtZpNprD_Asy",
-          //   amount: "1000000" // 0.001 Ton
-          // }
+          {
+            address: "UQBkBVZpW5-wc4TwhDiNkZUa3uEJMW3WnDhGqtZpNprD_Asy",
+            amount: "1000000" // 0.001 Ton
+          }
       ],
       validUntil: Math.floor(Date.now() / 1000) + 60,
     }
