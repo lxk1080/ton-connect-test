@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
+import { createPayloadByTonCoreCell, getUserTokenWalletAddress } from './utils';
 import {
   TonConnectUIProvider,
   TonConnectButton,
@@ -30,7 +31,34 @@ const Button = () => {
 const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI()
 
+  useEffect(() => {
+    initData()
+  }, [])
+
+  const initData = async () => {
+    // 生成 payload 数据
+    const payload = await createPayloadByTonCoreCell(
+      10000, // USDT 0.01
+      'UQCU-Q_iHDRPdvKPdaIKFXRuAEFJcjcRY5aRUW3H0AAl6OO6' // 目标 Ton 地址
+    )
+    // 生成 JettonWallet 地址
+    const tokenAddress = await getUserTokenWalletAddress(
+      'UQDNYLETVdvF3tDRTiRf7xujAUFU7wd5WegQLhBlbW6gLK8c', // 发送方的 Ton 地址
+      'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs' // USDT 合约地址
+    )
+    const data = {
+      payload,
+      tokenAddress,
+    }
+    // @ts-ignore
+    console.log('data ==>', window.initData = data)
+    // payload: "te6cckEBAQEAVgAAqA+KfqUAAAAAAAAAACJxCAEp8h/EOGie7eUe60QUKujcAIKS5G4ixy0iotuPoABL0QAlPkP4hw0T3byj3WiChV0bgBBSXI3EWOWkVFtx9AAJegQH0JzkrGI="
+    // tokenAddress: "0:98de1e33abcf2170c422777f356bb539861fceed61f8b5deabebb550667d34a0"
+    return data
+  }
+
   const onSendClick = async () => {
+    const data = await initData()
     const transaction = {
       messages: [
           {
@@ -42,6 +70,11 @@ const SendButton = () => {
           {
             address: "UQBkBVZpW5-wc4TwhDiNkZUa3uEJMW3WnDhGqtZpNprD_Asy",
             amount: "1000000" // 0.001 Ton
+          },
+          {
+            address: data.tokenAddress,
+            amount: "10000",
+            payload: data.payload,
           }
       ],
       validUntil: Math.floor(Date.now() / 1000) + 60,

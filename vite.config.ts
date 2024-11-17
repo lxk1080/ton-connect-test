@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 // import fs from 'fs'
 // import path from 'path'
 // import basicSsl from '@vitejs/plugin-basic-ssl'
@@ -8,6 +9,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     react(),
+    nodePolyfills({
+      // @ts-ignore
+      crypto: true,
+      stream: true,
+      buffer: true,
+      process: true
+    }),
     // basicSsl({
     //   /** name of certification */
     //   name: 'test',
