@@ -7,27 +7,29 @@ import {
   useIsConnectionRestored,
   useTonWallet,
   useTonConnectUI,
+  useTonAddress,
 } from "@tonconnect/ui-react";
 
 const Button = () => {
   const Wallet = useTonWallet()
   const status = useIsConnectionRestored()
-  const [tonConnectUI] = useTonConnectUI()
-
-  // @ts-ignore
-  window.tonConnectUI = tonConnectUI
+  const userFriendlyAddress = useTonAddress()
+  const rawAddress = useTonAddress(false)
 
   console.log('status', status)
   console.log('Wallet', Wallet)
+  console.log('userFriendlyAddress', userFriendlyAddress)
+  console.log('rawAddress', rawAddress)
 
   return <TonConnectButton />
 }
 
 const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI()
+  const userFriendlyAddress = useTonAddress()
 
   useEffect(() => {
-    initData()
+    // initData()
   }, [])
 
   const initData = async () => {
@@ -38,7 +40,7 @@ const SendButton = () => {
     )
     // 生成 JettonWallet 地址
     const tokenAddress = await getUserTokenWalletAddress(
-      'UQDNYLETVdvF3tDRTiRf7xujAUFU7wd5WegQLhBlbW6gLK8c', // 发送方的 Ton 地址
+      userFriendlyAddress, // 发送方的 Ton 地址
       'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs' // USDT 合约地址
     )
     const data = {
