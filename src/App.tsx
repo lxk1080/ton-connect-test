@@ -70,7 +70,7 @@ const SendButton = () => {
           },
           {
             address: data.tokenAddress,
-            amount: "10000",
+            amount: "0",
             payload: data.payload,
           }
       ],
