@@ -70,7 +70,7 @@ const SendButton = () => {
           // },
           {
             address: 'EQBf-AGxkG_G1D6rp5OVyGDHt2iqlEcG7b0phygshZw7eWaB',
-            amount: "0",
+            amount: "50000000",
             payload: 'te6cckEBAQEAWAAArA+KfqUAAAAAAAAAAEBfXhAIASnyH8Q4aJ7t5R7rRBQq6NwAgpLkbiLHLSKi24+gAEvRACU+Q/iHDRPdvKPdaIKFXRuAEFJcjcRY5aRUW3H0AAl6BAfQpK1vBg==',
           }
       ],
