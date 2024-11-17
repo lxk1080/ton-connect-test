@@ -35,7 +35,7 @@ const SendButton = () => {
   const initData = async () => {
     // 生成 payload 数据
     const payload = await createPayloadByTonCoreCell(
-      10000, // USDT 0.01
+      1000000, // USDT 1
       'UQCU-Q_iHDRPdvKPdaIKFXRuAEFJcjcRY5aRUW3H0AAl6OO6' // 目标 Ton 地址
     )
     // 生成 JettonWallet 地址
