@@ -77,6 +77,7 @@ const SendButton = () => {
       validUntil: Math.floor(Date.now() / 1000) + 60,
     }
 
+    console.log('transaction ==>', transaction)
     const res = await tonConnectUI.sendTransaction(transaction)
     console.log('sendRes ==>', res)
   }
