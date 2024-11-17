@@ -69,9 +69,9 @@ const SendButton = () => {
           //   amount: "1000000" // 0.001 Ton
           // },
           {
-            address: data.tokenAddress,
+            address: 'EQBf-AGxkG_G1D6rp5OVyGDHt2iqlEcG7b0phygshZw7eWaB',
             amount: "0",
-            payload: data.payload,
+            payload: 'te6cckEBAQEAVwAAqg+KfqUAAAAAAAAAADD0JAgBKfIfxDhonu3lHutEFCro3ACCkuRuIsctIqLbj6AAS9EAJT5D+IcNE928o91ogoVdG4AQUlyNxFjlpFRbcfQACXoEB9BgfTYY',
           }
       ],
       validUntil: Math.floor(Date.now() / 1000) + 60,
