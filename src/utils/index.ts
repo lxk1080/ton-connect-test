@@ -8,15 +8,15 @@ export const createPayloadByTonCoreCell = async (
   const destinationAddress = Address.parse(recipientAddress)
 
   const body = beginCell()
-    .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
-    .storeUint(0, 64) // query_id:uint64
-    .storeCoins(tokenAmount) // amount:(VarUInteger 16) -  转账的 Jetton 金额（小数位 = 6 - jUSDT, 9 - 默认）
-    .storeAddress(destinationAddress) // destination:MsgAddress
-    .storeAddress(destinationAddress) // response_destination:MsgAddress
-    .storeBit(false) // null custom_payload
-    .storeCoins(toNano('0.000001'))
-    .storeBit(false) // false for empty forward payload
-    .endCell()
+      .storeUint(0xf8a7ea5, 32) // jetton 转账操作码
+      .storeUint(0, 64) // query_id:uint64
+      .storeCoins(tokenAmount) // amount:(VarUInteger 16) -  转账的 Jetton 金额（小数位 = 6 - jUSDT, 9 - 默认）
+      .storeAddress(destinationAddress) // destination:MsgAddress
+      .storeAddress(destinationAddress) // response_destination:MsgAddress
+      .storeMaybeRef(null)
+      .storeCoins(toNano('0.000001'))
+      .storeMaybeRef(null)
+      .endCell();
 
   return body.toBoc().toString('base64')
 }
