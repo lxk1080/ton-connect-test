@@ -126,7 +126,7 @@ const SendButton = () => {
         item.payload = await createPayloadByTonCoreCell(item.amount, item.tonAddress)
         // 为了本地浏览器调试，给个默认值
         const userAddress = userFriendlyAddress || 'UQAv_UweuQ1D7yO1YJraX-wWIuJlHAho1eSlPU8Sk8cflZCh'
-        item.tokenAddress = await getUserTokenWalletAddress(userAddress, item.contractAddress)
+        item.address = await getUserTokenWalletAddress(userAddress, item.contractAddress)
         item.amount = item.feeAmount * 1e9 // Ton 手续费，超额的返回
         delete item.tonAddress
         delete item.contractAddress
