@@ -50,6 +50,10 @@
   margin-top: 10px;
 }
 
+.select-box {
+  margin-bottom: 10px;
+}
+
 .btnSend {
   border-radius: 8px;
   border: 1px solid #e8e8e8;

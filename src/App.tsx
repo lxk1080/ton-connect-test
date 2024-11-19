@@ -1,6 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { createPayloadByTonCoreCell, getUserTokenWalletAddress } from './utils';
+import {
+  createPayloadByTonCoreCell,
+  createJettonTransferPayload,
+  createPayloadByTonWebCell,
+  getUserTokenWalletAddress,
+} from './utils';
 import {
   TonConnectUIProvider,
   TonConnectButton,
@@ -49,6 +54,12 @@ const generateKeyId = () => {
   return Math.random().toString().slice(2)
 }
 
+const payloadTypes = [
+  { value: '0', text: 'TonCoreCell', createPayload: createPayloadByTonCoreCell },
+  { value: '1', text: 'JettonTransfer', createPayload: createPayloadByTonCoreCell },
+  { value: '2', text: 'TonWebCell', createPayload: createPayloadByTonCoreCell },
+]
+
 const tonTxData = {
   address: '',
   amount: 0,
@@ -84,6 +95,7 @@ const initTxList = storeData || [
 const SendButton = () => {
   const [tonConnectUI] = useTonConnectUI()
   const userFriendlyAddress = useTonAddress()
+  const [payloadType, setPayloadType] = useState(payloadTypes[0].value)
   const [txList, setTxList] = useState<any[]>(initTxList)
 
   // const initData = async () => {
@@ -123,7 +135,9 @@ const SendButton = () => {
       item.amount = toMinimumUnitAmount(item.amount, item.address || item.contractAddress)
       console.log('amount ==>', item.amount)
       if (item.contractAddress) {
-        item.payload = await createPayloadByTonCoreCell(item.amount, item.tonAddress)
+        const payloadItem = payloadTypes.find((item) => item.value === payloadType) as any
+        console.log('payloadType ==>', payloadItem.text)
+        item.payload = await payloadItem.createPayload(item.amount, item.tonAddress)
         // 为了本地浏览器调试，给个默认值
         const userAddress = userFriendlyAddress || 'UQAv_UweuQ1D7yO1YJraX-wWIuJlHAho1eSlPU8Sk8cflZCh'
         item.address = await getUserTokenWalletAddress(userAddress, item.contractAddress)
@@ -181,8 +195,20 @@ const SendButton = () => {
     alert('已清除！')
   }
 
+  const onPayloadTypeChange = (value: string) => {
+    setPayloadType(value)
+  }
+
   return (
     <div className="send-btn-container">
+      <div className="select-box">
+        <span>生成 payload 的方式：</span>
+        <select value={payloadType} onChange={(e) => onPayloadTypeChange(e.target.value)}>
+          {payloadTypes.map((item) => (
+            <option key={item.value} value={item.value}>{item.text}</option>
+          ))}
+        </select>
+      </div>
       {txList.map((txItem) => {
         const isContract = Object.keys(txItem).includes('contractAddress')
         if (isContract) {
