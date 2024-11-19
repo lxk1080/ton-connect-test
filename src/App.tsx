@@ -128,6 +128,7 @@ const SendButton = () => {
         const userAddress = userFriendlyAddress || 'UQAv_UweuQ1D7yO1YJraX-wWIuJlHAho1eSlPU8Sk8cflZCh'
         item.tokenAddress = await getUserTokenWalletAddress(userAddress, item.contractAddress)
         item.amount = item.feeAmount * 1e9 // Ton 手续费，超额的返回
+        item.amount += '' // 转化为字符串
         delete item.tonAddress
         delete item.contractAddress
         delete item.feeAmount
