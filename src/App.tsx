@@ -63,16 +63,17 @@ const contractTxData = {
 
 const initTxList = storeData || [
   {
+    id: generateKeyId(),
     address: 'UQCU-Q_iHDRPdvKPdaIKFXRuAEFJcjcRY5aRUW3H0AAl6OO6',
     amount: 0.001,
-    id: generateKeyId(),
   },
   {
+    id: generateKeyId(),
     address: 'UQBkBVZpW5-wc4TwhDiNkZUa3uEJMW3WnDhGqtZpNprD_Asy',
     amount: 0.001,
-    id: generateKeyId(),
   },
   {
+    id: generateKeyId(),
     tonAddress: 'UQCU-Q_iHDRPdvKPdaIKFXRuAEFJcjcRY5aRUW3H0AAl6OO6',
     contractAddress: 'EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs',
     amount: 0.5,
@@ -147,9 +148,9 @@ const SendButton = () => {
 
   const addTx = (isContract: boolean) => {
     if (isContract) {
-      setTxList([...txList, { ...contractTxData, id: generateKeyId() }])
+      setTxList([...txList, { id: generateKeyId(), ...contractTxData }])
     } else {
-      setTxList([...txList, { ...tonTxData, id: generateKeyId() }])
+      setTxList([...txList, { id: generateKeyId(), ...tonTxData }])
     }
   }
 
