@@ -13,9 +13,9 @@ export const createPayloadByTonCoreCell = async (
       .storeCoins(tokenAmount) // amount:(VarUInteger 16) -  转账的 Jetton 金额（小数位 = 6 - jUSDT, 9 - 默认）
       .storeAddress(destinationAddress) // destination:MsgAddress
       .storeAddress(destinationAddress) // response_destination:MsgAddress
-      .storeMaybeRef(null)
+      .storeBit(false)
       .storeCoins(toNano('0.000001'))
-      .storeMaybeRef(null)
+      .storeBit(false)
       .endCell();
 
   return body.toBoc().toString('base64')
