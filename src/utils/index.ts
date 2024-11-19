@@ -1,6 +1,12 @@
 import TonWeb from 'tonweb'
-import { Address } from '@ton/core'
+import { Address, Cell } from '@ton/core'
 import { beginCell, toNano, TonClient } from '@ton/ton'
+import { TonTxParams, TonTxRequestStandard } from '../types'
+
+export const apiKey: string = '1b312c91c3b691255130350a49ac5a0742454725f910756aff94dfe44858388e'
+export const tonRpc: string = 'https://toncenter.com/api/v2/jsonRPC'
+export const hashHttp: string = 'https://toncenter.com/api/index/v1'
+export const tonScanUrl: string = 'https://tonviewer.com/transaction/'
 
 export const createPayloadByTonCoreCell = async (
   tokenAmount: number,
@@ -94,6 +100,79 @@ export const createPayloadByTonWebCell = async (tokenAmount: number, recipientAd
 //   return transferBody;
 // };
 
+export const parsePayloadAsStandard = async (
+  tonTx: TonTxParams
+): Promise<Partial<TonTxRequestStandard>> => {
+  const {
+    messages: [{ payload, address: toAddress }]
+  } = tonTx
+
+  const result: Partial<TonTxRequestStandard> = {
+    body: tonTx
+  }
+
+  if (!payload) return result
+
+  const payloadHex = payload
+
+  const jettonMinterAddress = await checkIsJettonWallet(toAddress)
+  // check is jetton and try parse as jetton
+  if (!jettonMinterAddress) return result
+  try {
+    const { amount, destination } = parsingTonTxPayload(payloadHex)
+
+    result.jettonInfo = {
+      recipientAddress: destination.toString(),
+      amount: amount.toString(),
+      jettonMinterAddress
+    }
+  } catch (e) {
+    console.log('parse payload failed, pass', e)
+  }
+
+  return result
+}
+
+const checkIsJettonWallet = async (jettonMinterAddress: string) => {
+  const tonweb = new TonWeb(
+    new TonWeb.HttpProvider(tonRpc, {
+      apiKey
+    })
+  )
+  const jettonWallet = new TonWeb.token.jetton.JettonWallet(tonweb.provider, {
+    address: jettonMinterAddress
+  } as any)
+  try {
+    const data = await jettonWallet.getData()
+    const jettonMinterAddress = data.jettonMinterAddress.toString(
+      true,
+      true,
+      true
+    )
+    console.log('Jetton Minter Address:', jettonMinterAddress)
+    console.log('This address is a valid Jetton Wallet address.')
+    return jettonMinterAddress
+  } catch (error) {
+    console.log(`${jettonMinterAddress} doesn't seems to be a jetton`)
+    return false
+  }
+}
+
+const parsingTonTxPayload = (payloadHex: string) => {
+  const cell = Cell.fromBase64(payloadHex)
+  const slice = cell.beginParse()
+  const operationCode = slice.loadUint(32)
+  const queryId = slice.loadUintBig(64)
+  const amount = slice.loadCoins()
+  const destination = slice.loadAddress()
+  return {
+    operationCode,
+    queryId,
+    amount,
+    destination
+  }
+}
+
 export async function getUserTokenWalletAddress(
   userAddress: string,
   jettonMasterAddress: string
@@ -107,7 +186,6 @@ export async function getUserTokenWalletAddress(
   const response = await client.runMethod(
     Address.parse(jettonMasterAddress),
     'get_wallet_address',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     [{ type: 'slice', cell: userAddressCell }]
   )
   return response.stack.readAddress().toRawString()
