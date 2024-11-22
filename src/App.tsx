@@ -33,6 +33,7 @@ function App() {
 }
 
 const Button = () => {
+  const [tonConnectUI] = useTonConnectUI();
   const Wallet = useTonWallet()
   const status = useIsConnectionRestored()
   const userFriendlyAddress = useTonAddress()
@@ -42,6 +43,15 @@ const Button = () => {
   console.log('Wallet', Wallet)
   console.log('userFriendlyAddress', userFriendlyAddress)
   console.log('rawAddress', rawAddress)
+
+  tonConnectUI.setConnectRequestParameters({ state: "loading" })
+
+  tonConnectUI.setConnectRequestParameters({
+    state: 'ready',
+    value: {
+      tonProof: "eyJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjoiNWU3NzFkMzA2ZDNlMWY5ODk2Zjg0MDRmMzdkMTFmMDNjMzQzMjAzYzdmZjBjMDk1OWJmMzQ3ZDkyMGNmZDczYyIsImlhdCI6MTczMjI1NDc5OSwiZXhwIjoxNzMyMjU1Njk5fQ.dQvErnMZ61I2VWlpkgXkMoQ04_b-Nm745I6jSU7ruK8",
+    },
+  })
 
   return <TonConnectButton />
 }
