@@ -32,8 +32,6 @@ function App() {
   );
 }
 
-// window.Telegram.WebApp.initDataUnsafe.start_param
-
 const Button = () => {
   const [tonConnectUI] = useTonConnectUI();
   const Wallet = useTonWallet()
@@ -68,8 +66,8 @@ const generateKeyId = () => {
 
 const payloadTypes = [
   { value: '0', text: 'TonCoreCell', createPayload: createPayloadByTonCoreCell },
-  { value: '1', text: 'JettonTransfer', createPayload: createPayloadByTonCoreCell },
-  { value: '2', text: 'TonWebCell', createPayload: createPayloadByTonCoreCell },
+  { value: '1', text: 'JettonTransfer', createPayload: createJettonTransferPayload },
+  { value: '2', text: 'TonWebCell', createPayload: createPayloadByTonWebCell },
 ]
 
 const tonTxData = {
@@ -212,6 +210,7 @@ const SendButton = () => {
   }
 
   const gotoDownloadApp = () => {
+    // window.Telegram.WebApp.initDataUnsafe.start_param
     const galink = (() => {
       const userAgent = navigator.userAgent.toLowerCase()
       const isIOS = /iphone|ipad|ipod/.test(userAgent)
@@ -321,9 +320,9 @@ const SendButton = () => {
         Send transaction
       </button>
 
-
-      <div style={{ marginTop: '20px' }}>
-        <span onClick={gotoDownloadApp} style={{ color: 'blue' }}>
+      {/* others */}
+      <div style={{ marginTop: '20px', color: 'blue', cursor: 'pointer' }}>
+        <span onClick={gotoDownloadApp}>
           跳转到 GAuth 下载页
         </span>
       </div>
