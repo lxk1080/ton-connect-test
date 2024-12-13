@@ -32,6 +32,8 @@ function App() {
   );
 }
 
+// window.Telegram.WebApp.initDataUnsafe.start_param
+
 const Button = () => {
   const [tonConnectUI] = useTonConnectUI();
   const Wallet = useTonWallet()
@@ -209,6 +211,29 @@ const SendButton = () => {
     setPayloadType(value)
   }
 
+  const gotoDownloadApp = () => {
+    const galink = (() => {
+      const userAgent = navigator.userAgent.toLowerCase()
+      const isIOS = /iphone|ipad|ipod/.test(userAgent)
+      const isAndroid = /android/.test(userAgent)
+      const isSamsung = /samsung/.test(userAgent)
+      const isMac = /macintosh|mac os x/.test(userAgent)
+      const isWindows = /windows/.test(userAgent)
+      const appleUrl =
+        'https://apps.apple.com/app/google-authenticator/id388497605'
+      const googleUrl =
+        'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2'
+      // Microsoft Authenticator（三星应用商店没有谷歌验证器）
+      const galaxyUrl =
+        'https://galaxystore.samsung.com/detail/com.azure.authenticator'
+      if (isIOS || isMac) return appleUrl
+      if (isSamsung) return googleUrl
+      if (isAndroid || isWindows) return googleUrl
+      return googleUrl
+    })()
+    window.open(galink, '_blank')
+  }
+
   return (
     <div className="send-btn-container">
       <div className="select-box">
@@ -295,6 +320,13 @@ const SendButton = () => {
       <button className="btnSend" onClick={onSendClick}>
         Send transaction
       </button>
+
+
+      <div style={{ marginTop: '20px' }}>
+        <span onClick={gotoDownloadApp} style={{ color: 'blue' }}>
+          跳转到 GAuth 下载页
+        </span>
+      </div>
     </div>
   )
 }
