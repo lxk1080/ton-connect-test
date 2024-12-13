@@ -210,7 +210,6 @@ const SendButton = () => {
   }
 
   const gotoDownloadApp = () => {
-    // window.Telegram.WebApp.initDataUnsafe.start_param
     const galink = (() => {
       const userAgent = navigator.userAgent.toLowerCase()
       const isIOS = /iphone|ipad|ipod/.test(userAgent)
@@ -230,7 +229,9 @@ const SendButton = () => {
       if (isAndroid || isWindows) return googleUrl
       return googleUrl
     })()
-    window.open(galink, '_blank')
+    // window.open(galink, '_blank')
+    // @ts-ignore
+    window.Telegram.WebApp.openLink(galink)
   }
 
   return (
