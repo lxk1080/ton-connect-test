@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import {
   createPayloadByTonCoreCell,
@@ -14,8 +14,19 @@ import {
   useTonConnectUI,
   useTonAddress,
 } from "@tonconnect/ui-react";
+// import { StargateClient } from '@cosmjs/stargate'
 
 function App() {
+  useEffect(() => {
+    test()
+  }, [])
+
+  const test = async () => {
+    // const client = await StargateClient.connect('https://cosmos-rpc.quickapi.com:443')
+    // const client = await StargateClient.connect('http://localhost:8089/cosmosRpc')
+    // console.log(1234, client)
+  }
+
   return (
     <>
       <TonConnectUIProvider
@@ -229,9 +240,13 @@ const SendButton = () => {
       if (isAndroid || isWindows) return googleUrl
       return googleUrl
     })()
-    // window.open(galink, '_blank')
-    // @ts-ignore
-    window.Telegram.WebApp.openLink(galink)
+    const isInTg = location.hash.slice(1).split('=')[0] === 'tgWebAppData'
+    if (isInTg) {
+      // @ts-ignore
+      window.Telegram.WebApp.openLink(galink)
+    } else {
+      window.open(galink, '_blank')
+    }
   }
 
   return (

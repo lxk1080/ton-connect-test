@@ -188,5 +188,5 @@ export async function getUserTokenWalletAddress(
     'get_wallet_address',
     [{ type: 'slice', cell: userAddressCell }]
   )
-  return response.stack.readAddress().toRawString()
+  return response.stack.readAddress().toString()
 }

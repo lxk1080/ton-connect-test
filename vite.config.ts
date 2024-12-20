@@ -26,8 +26,15 @@ export default defineConfig({
     // })
   ],
   server: {
-    port: 8088,
+    port: 8089,
     host: '0.0.0.0',
+    proxy: {
+      '/cosmosRpc': {
+        target: 'https://cosmos-rpc.quickapi.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/cosmosRpc/, ''),
+      },
+    },
     // https: {
     //   key: fs.readFileSync(path.resolve(__dirname, 'key.pem')),
     //   cert: fs.readFileSync(path.resolve(__dirname, 'cert.pem')),
