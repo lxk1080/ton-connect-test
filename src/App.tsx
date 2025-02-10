@@ -173,19 +173,20 @@ const SendButton = () => {
 
     console.log('messages ==>', data)
 
-    // const transaction = {
-    //   messages: data,
-    //   validUntil: Math.floor(Date.now() / 1000) + 60,
-    // }
-
     const transaction = {
-      messages: [{
-        address: 'EQCtedmVBAGBPm-OE2vCuTOPoUb2y586hw9cXJbY2eWt0Isn',
-        amount: '450000000',
-        payload: 'te6cckECAwEAATUAAWxsWCBZAAAAAGeppeNK1nzTQF9eEAgA5hbpKQhbNTYF/aI32efajICLJpBBd7zrNyHaa4sLZ5UBAf57ImV2bV9jYWxsIjp7InRhcmdldCI6IjB4RkY0NjNlOUU5QjhmMzVEMTBGNDgzMzU3OTljYkI1MDVEMTcwM0EwYiIsIm1ldGhvZF9uYW1lIjoibWludChieXRlcyxieXRlcykiLCJhcmd1bWVudHMiOiJBQUFBQUFBQUFBQUFBAgDwQUFBLzBZK25wdVBOZEVQU0ROWG1jdTFCZEZ3T2dzQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJmWGhBQT09In0sInNoYXJkZWRfaWQiOiIxNzM5MTcxNzQyIiwic2hhcmRfY291bnQiOjF9mDqNyA==',
-      }],
+      messages: data,
       validUntil: Math.floor(Date.now() / 1000) + 60,
     }
+
+    // TAC TEST
+    // const transaction = {
+    //   messages: [{
+    //     address: 'EQCtedmVBAGBPm-OE2vCuTOPoUb2y586hw9cXJbY2eWt0Isn',
+    //     amount: '450000000',
+    //     payload: 'te6cckECAwEAATUAAWxsWCBZAAAAAGeppeNK1nzTQF9eEAgA5hbpKQhbNTYF/aI32efajICLJpBBd7zrNyHaa4sLZ5UBAf57ImV2bV9jYWxsIjp7InRhcmdldCI6IjB4RkY0NjNlOUU5QjhmMzVEMTBGNDgzMzU3OTljYkI1MDVEMTcwM0EwYiIsIm1ldGhvZF9uYW1lIjoibWludChieXRlcyxieXRlcykiLCJhcmd1bWVudHMiOiJBQUFBQUFBQUFBQUFBAgDwQUFBLzBZK25wdVBOZEVQU0ROWG1jdTFCZEZ3T2dzQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJmWGhBQT09In0sInNoYXJkZWRfaWQiOiIxNzM5MTcxNzQyIiwic2hhcmRfY291bnQiOjF9mDqNyA==',
+    //   }],
+    //   validUntil: Math.floor(Date.now() / 1000) + 60,
+    // }
 
     console.log('transaction ==>', transaction)
     const res = await tonConnectUI.sendTransaction(transaction)
